@@ -2,9 +2,19 @@ const elem = document.querySelector('.table')
 
 const tableTemplate = '<table><tbody></tbody></table>';
 elem.insertAdjacentHTML('afterbegin', tableTemplate);
+elem.firstChild
+
+
+const tableElement = elem.firstChild
 
 const rowTemplate = '<tr></tr>';
-const colTemplate = '<td></td>';
+const tBodyElement = tableElement.firstChild
+tBodyElement.innerHTML = 'ggggggg'
+tBodyElement.insertAdjacentHTML('afterbegin', rowTemplate)
+
+/*let colTemplate = '<td></td>';
+rowTemplate.insertAdjacentHTML('afterbegin', colTemplate);*/
+//tableTemplate.insertAdjacentHTML('afterbegin', rowTemplate)
 
 const createTable = (rows, columns) => {
     let tBody = document.querySelectorAll('tbody')
@@ -15,4 +25,4 @@ const createTable = (rows, columns) => {
         tBody.insertAdjacentHTML('afterbegin', rowTemplate)
     }
 }
-createTable(3, 13)
+//createTable(3, 13)
