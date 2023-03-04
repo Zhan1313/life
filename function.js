@@ -10,33 +10,13 @@ const numberOfNeighbors = (rowNumber, columnNumber) => {
 
     for (let i = 0; i < height; i++) {
         let width = field[i].length;
-        if(rowNumber - 1 === i) {
-            for (let j = 0; j < width; j++) {
-                if(columnNumber - 1 === j) {
-                    if (rowNumber === 1) {
-                        if(columnNumber === 1) {
-                            neighbors = field[i][j+1] + field[i+1][j] + field[i+1][j+1]
-                        } else if (columnNumber === width) {
-                            neighbors = field[i][j-1] + field[i+1][j-1] + field[i+1][j]
-                        } else {
-                            neighbors = field[i][j+1] + field[i][j-1] + field[i+1][j] + field[i+1][j-1] + field[i+1][j+1]
-                        }
-                    } else if (rowNumber === height) {
-                        if(columnNumber === 1) {
-                            neighbors = field[i][j+1] + field[i-1][j] + field[i-1][j+1]
-                        } else if (columnNumber === width) {
-                            neighbors = field[i][j-1] + field[i-1][j-1] + field[i-1][j]
-                        } else {
-                            neighbors = field[i][j+1] + field[i][j-1] + field[i-1][j] + field[i-1][j-1] + field[i-1][j+1]
-                        }
-                    } else if (columnNumber === 1 && (rowNumber >= 2 && rowNumber <= height - 1)) {
-                        neighbors = field[i][j+1] + field[i-1][j] + field[i-1][j+1] + field[i+1][j] + field[i+1][j+1]
-                    } else if (columnNumber === width && (rowNumber >= 2 && rowNumber <= height - 1)) {
-                        neighbors = field[i-1][j] + field[i-1][j-1] + field[i][j-1] + field[i+1][j-1] + field[i+1][j]
-                    } else {
-                        neighbors = field[i][j-1] + field[i][j+1] + field[i-1][j] + field[i+1][j]
-                            + field[i-1][j-1] + field[i-1][j+1] + field[i+1][j-1] + field[i+1][j+1]
-                    }
+        for (let j = 0; j < width; j++) {
+            if (field[i][j] === 1) {
+                if ((rowNumber === i + 2 || rowNumber === i)
+                    && (columnNumber === j + 2 || columnNumber === j || columnNumber === j + 1)) {
+                    neighbors += 1
+                } else if (rowNumber === i + 1 && (columnNumber === j + 2 || columnNumber === j)) {
+                    neighbors += 1
                 }
             }
         }
