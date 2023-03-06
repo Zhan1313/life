@@ -16,7 +16,7 @@ const numberOfNeighbors = (rowNumber, columnNumber) => {
     let topLeftCellResult = numberOfNeighborsTopLeft(field, neighbors, rowIndex, colIndex);
     let topCellResult = numberOfNeighborsTop(field, neighbors, rowIndex, colIndex);
     let topRightCellResult = numberOfNeighborsTopRight(field, neighbors, rowIndex, colIndex, width);
-    let rightCellResult = numberOfNeighborsRight(field, neighbors, rowIndex, colIndex, width);
+    let rightCellResult = numberOfNeighborsRight(field, rowIndex, colIndex);
     let bottomRightCellResult = numberOfNeighborsBottomRight(field, neighbors, rowIndex, colIndex, height, width);
     let bottomCellResult = numberOfNeighborsBottom(field, neighbors, rowIndex, colIndex,  height);
     let bottomLeftCellResult = numberOfNeighborsBottomLeft(field, neighbors, rowIndex, colIndex,  height);
@@ -80,14 +80,14 @@ const numberOfNeighborsTopRight = (field, topRightNeighbor, rowIndex, colIndex, 
         return topRightNeighbor;
     }
 }
-const numberOfNeighborsRight = (field, rightNeighbor, rowIndex, colIndex, width) => {
-    let rightCell = field[rowIndex][colIndex + 1];
+
+const numberOfNeighborsRight = (field, rowIndex, colIndex) => {
+    let width = field[rowIndex].length;
     let rightCellIndex = colIndex + 1;
-    if (rightCell === 1) {
-        rightNeighbor += 1;
-        return rightNeighbor;
-    } else if (rightCell === 0 || rightCellIndex >= width) {
-        return rightNeighbor;
+    if (rightCellIndex < width) {
+        return field[rowIndex][rightCellIndex];
+    } else {
+        return 0;
     }
 }
 const numberOfNeighborsBottomRight = (field, bottomRightNeighbor, rowIndex, colIndex, height, width) => {
@@ -130,7 +130,7 @@ const numberOfNeighborsBottomLeft = (field, bottomLeftNeighbor, rowIndex, colInd
         } else if (bottomRightCell === 0) {
             return bottomLeftNeighbor;
         }
-    } else if (bottomLeftCellRowIndex >= height || bottomLeftCellColIndex < 0) {
+    } else {
         return bottomLeftNeighbor;
     }
 }
