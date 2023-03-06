@@ -9,78 +9,56 @@ const numberOfNeighbors = (rowNumber, columnNumber) => {
     let neighbors = 0;
     let rowIndex = rowNumber - 1;
     let colIndex = columnNumber - 1;
-    let height = field.length;
-    let width = field[rowIndex].length;
 
-    let leftCellResult = numberOfNeighborsLeft(field, neighbors, rowIndex, colIndex);
-    let topLeftCellResult = numberOfNeighborsTopLeft(field, neighbors, rowIndex, colIndex);
-    let topCellResult = numberOfNeighborsTop(field, neighbors, rowIndex, colIndex);
-    let topRightCellResult = numberOfNeighborsTopRight(field, neighbors, rowIndex, colIndex, width);
+    let leftCellResult = numberOfNeighborsLeft(field, rowIndex, colIndex);
+    let topLeftCellResult = numberOfNeighborsTopLeft(field, rowIndex, colIndex);
+    let topCellResult = numberOfNeighborsTop(field, rowIndex, colIndex);
+    let topRightCellResult = numberOfNeighborsTopRight(field, rowIndex, colIndex);
     let rightCellResult = numberOfNeighborsRight(field, rowIndex, colIndex);
-    let bottomRightCellResult = numberOfNeighborsBottomRight(field, neighbors, rowIndex, colIndex, height, width);
-    let bottomCellResult = numberOfNeighborsBottom(field, neighbors, rowIndex, colIndex,  height);
-    let bottomLeftCellResult = numberOfNeighborsBottomLeft(field, neighbors, rowIndex, colIndex,  height);
+    let bottomRightCellResult = numberOfNeighborsBottomRight(field, rowIndex, colIndex);
+    let bottomCellResult = numberOfNeighborsBottom(field, rowIndex, colIndex);
+    let bottomLeftCellResult = numberOfNeighborsBottomLeft(field, rowIndex, colIndex);
 
     neighbors = leftCellResult + topLeftCellResult + topCellResult + topRightCellResult + rightCellResult +
         bottomRightCellResult + bottomCellResult + bottomLeftCellResult;
     return neighbors;
 }
 
-const numberOfNeighborsLeft = (field, leftNeighbor, rowIndex, colIndex) => {
-    let leftCell = field[rowIndex][colIndex - 1];
+const numberOfNeighborsLeft = (field, rowIndex, colIndex) => {
     let leftCellIndex = colIndex - 1;
-    if (leftCell === 1) {
-        leftNeighbor += 1;
-        return leftNeighbor;
-    } else if (leftCell === 0 || leftCellIndex < 0) {
-        return leftNeighbor;
+    if (leftCellIndex >= 0) {
+        return field[rowIndex][leftCellIndex];
+    } else {
+        return 0;
     }
 }
-const numberOfNeighborsTopLeft = (field, topLeftNeighbor, rowIndex, colIndex) => {
+const numberOfNeighborsTopLeft = (field, rowIndex, colIndex) => {
     let topLeftCellRowIndex = rowIndex - 1;
     let topLeftCellColIndex = colIndex - 1;
     if (topLeftCellRowIndex >= 0 && topLeftCellColIndex >= 0) {
-        let topLeftCell = field[topLeftCellRowIndex][topLeftCellColIndex];
-        if (topLeftCell === 1) {
-            topLeftNeighbor += 1;
-            return topLeftNeighbor;
-        } else if (topLeftCell === 0) {
-            return topLeftNeighbor;
-        }
-    } else if (topLeftCellRowIndex < 0 || topLeftCellColIndex < 0) {
-        return topLeftNeighbor;
+        return field[topLeftCellRowIndex][topLeftCellColIndex];
+    } else {
+        return 0;
     }
 }
-const numberOfNeighborsTop = (field, topNeighbor, rowIndex, colIndex) => {
+const numberOfNeighborsTop = (field, rowIndex, colIndex) => {
     let topCellIndex = rowIndex - 1;
     if (topCellIndex >= 0) {
-        let topCell = field[rowIndex - 1][colIndex];
-        if (topCell === 1){
-            topNeighbor += 1;
-            return topNeighbor;
-        } else if (topCell === 0) {
-            return topNeighbor;
-        }
-    } else if (topCellIndex < 0) {
-        return topNeighbor;
+        return field[topCellIndex][colIndex];
+    } else {
+        return 0;
     }
 }
-const numberOfNeighborsTopRight = (field, topRightNeighbor, rowIndex, colIndex, width) => {
+const numberOfNeighborsTopRight = (field, rowIndex, colIndex) => {
+    let width = field[rowIndex].length;
     let topRightCellRowIndex = rowIndex - 1;
     let topRightCellColIndex = colIndex + 1;
     if (topRightCellRowIndex >= 0 && topRightCellColIndex < width) {
-        let topRightCell = field[topRightCellRowIndex][topRightCellColIndex];
-        if (topRightCell === 1) {
-            topRightNeighbor += 1;
-            return topRightNeighbor;
-        } else if (topRightCell === 0) {
-            return topRightNeighbor;
-        }
-    } else if (topRightCellRowIndex < 0 || topRightCellColIndex >= width) {
-        return topRightNeighbor;
+        return field[topRightCellRowIndex][topRightCellColIndex];
+    } else {
+        return 0;
     }
 }
-
 const numberOfNeighborsRight = (field, rowIndex, colIndex) => {
     let width = field[rowIndex].length;
     let rightCellIndex = colIndex + 1;
@@ -90,48 +68,34 @@ const numberOfNeighborsRight = (field, rowIndex, colIndex) => {
         return 0;
     }
 }
-const numberOfNeighborsBottomRight = (field, bottomRightNeighbor, rowIndex, colIndex, height, width) => {
+const numberOfNeighborsBottomRight = (field, rowIndex, colIndex) => {
+    let height = field.length;
+    let width = field[rowIndex].length;
     let bottomRightCellRowIndex = rowIndex + 1;
     let bottomRightCellColIndex = colIndex + 1;
     if (bottomRightCellRowIndex < height && bottomRightCellColIndex < width) {
-        let bottomRightCell = field[bottomRightCellRowIndex][bottomRightCellColIndex];
-        if (bottomRightCell === 1) {
-            bottomRightNeighbor += 1;
-            return bottomRightNeighbor;
-        } else if (bottomRightCell === 0) {
-            return bottomRightNeighbor;
-        }
-    } else if (bottomRightCellRowIndex >= height || bottomRightCellColIndex >= width) {
-        return bottomRightNeighbor;
+        return field[bottomRightCellRowIndex][bottomRightCellColIndex];
+    } else {
+        return 0;
     }
 }
-const numberOfNeighborsBottom = (field, bottomNeighbor, rowIndex, colIndex,  height) => {
+const numberOfNeighborsBottom = (field, rowIndex, colIndex) => {
+    let height = field.length;
     let bottomCellIndex = rowIndex + 1;
     if (bottomCellIndex < height) {
-        let bottomCell = field[rowIndex + 1][colIndex];
-        if (bottomCell === 1){
-            bottomNeighbor += 1;
-            return bottomNeighbor;
-        } else if (bottomCell === 0) {
-            return bottomNeighbor;
-        }
-    } else if (bottomCellIndex >= height) {
-        return bottomNeighbor;
+        return field[bottomCellIndex][colIndex];
+    } else {
+        return 0;
     }
 }
-const numberOfNeighborsBottomLeft = (field, bottomLeftNeighbor, rowIndex, colIndex,  height) => {
+const numberOfNeighborsBottomLeft = (field, rowIndex, colIndex) => {
+    let height = field.length;
     let bottomLeftCellRowIndex = rowIndex + 1;
     let bottomLeftCellColIndex = colIndex - 1;
     if (bottomLeftCellRowIndex < height && bottomLeftCellColIndex >= 0) {
-        let bottomRightCell = field[bottomLeftCellRowIndex][bottomLeftCellColIndex];
-        if (bottomRightCell === 1) {
-            bottomLeftNeighbor += 1;
-            return bottomLeftNeighbor;
-        } else if (bottomRightCell === 0) {
-            return bottomLeftNeighbor;
-        }
+        return field[bottomLeftCellRowIndex][bottomLeftCellColIndex];
     } else {
-        return bottomLeftNeighbor;
+        return 0;
     }
 }
 
