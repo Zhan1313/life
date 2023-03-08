@@ -26,3 +26,24 @@ const createTable = (rows, columns) => {
     }
 }
 //createTable(3, 13)
+
+class Developer {
+    constructor(name, age, skills) {
+        this.name = name;
+        this.age = age;
+        this.skills = skills;
+    }
+}
+const developer1 = new Developer('Zhandos', 37, 'JS, PHP');
+
+const comparison = (arr1, arr2) => {
+    let arr3 = [];
+    if (arr1[0][0] === arr2[0][0]) {
+        arr3.push(arr1[0][0]);
+    } else {
+        return false;
+    }
+    if (arr3 !== []) {
+        return true;
+    }
+}

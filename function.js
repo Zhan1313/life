@@ -1,5 +1,44 @@
+let firstGenerationField =
+       [[0, 0, 0, 0, 1],
+        [0, 0, 1, 0, 1],
+        [0, 1, 0, 1, 0],
+        [0, 1, 1, 0, 1],
+        [0, 1, 1, 0, 0]];
+
+let firstGenerationField1 =
+       [[0, 0, 0, 0, 1],
+        [0, 0, 1, 0, 1],
+        [0, 1, 0, 1, 0],
+        [0, 1, 1, 0, 1],
+        [0, 1, 1, 0, 0]];
+
+let firstGenerationField2 =
+       [[0, 1, 1, 0, 1],
+        [0, 0, 1, 0, 1],
+        [0, 1, 0, 1, 0],
+        [0, 1, 1, 0, 1],
+        [0, 1, 1, 0, 0]];
+
+const comparison = (arr1, arr2) => {
+    let arr3 = [];
+    for (let i = 0; i < arr1.length; i++) {
+        for (let j = 0; j < arr1[i].length; j++) {
+            if (arr1[i][j] === arr2[i][j]) {
+                arr3.push(arr1[i][j]);
+            } else {
+                return false;
+            }
+        }
+    }
+    if (arr3 !== []) {
+        return true;
+    }
+}
+comparison(firstGenerationField, firstGenerationField1) // true
+comparison(firstGenerationField, firstGenerationField2) // false
+
 const getNextGeneration = (array) => {
-    let newArray = [...array];
+    let newArray = JSON.parse(JSON.stringify(array));
     for (let i = 0; i < array.length; i++) {
         for (let j = 0; j < array[i].length; j++) {
             let arrayRow = i + 1;
@@ -8,7 +47,7 @@ const getNextGeneration = (array) => {
             if (array[i][j] === 1) {
                 if (neighbors === 2 || neighbors === 3) {
                     newArray[i][j] = 1;
-                } else if (neighbors < 2 || neighbors > 3) {
+                } else {
                     newArray[i][j] = 0;
                 }
             } else if (array[i][j] === 0) {
@@ -22,12 +61,6 @@ const getNextGeneration = (array) => {
     }
     return newArray;
 }
-let firstGenerationField =
-    [[0, 0, 0, 0, 1],
-        [0, 0, 1, 0, 1],
-        [0, 1, 0, 1, 0],
-        [0, 1, 1, 0, 1],
-        [0, 1, 1, 0, 0]];
 
 getNextGeneration(firstGenerationField);
 
@@ -166,3 +199,28 @@ let field =
         [0, 1, 0, 1, 0],
         [0, 1, 1, 0, 1],
         [0, 1, 1, 0, 0]];*/
+/*
+const getNextGeneration2 = (array) => {
+    let newArray = [...array];
+    for (let i = 0; i < array.length; i++) {
+        for (let j = 0; j < array[i].length; j++) {
+            let arrayRow = i + 1;
+            let arrayCol = j + 1;
+            let neighbors = getNumberOfNeighbors(array, arrayRow, arrayCol);
+            if (array[i][j] === 1) {
+                if (neighbors === 2 || neighbors === 3) {
+                    newArray[i][j] = 1;
+                } else if (neighbors < 2 || neighbors > 3) {
+                    newArray[i][j] = 0;
+                }
+            } else if (array[i][j] === 0) {
+                if (neighbors === 3) {
+                    newArray[i][j] = 1;
+                } else {
+                    newArray[i][j] = 0;
+                }
+            }
+        }
+    }
+    return newArray;
+}*/
